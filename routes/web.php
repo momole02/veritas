@@ -16,4 +16,10 @@ Route::get('/', [
 	'uses'=>'HomeController@index'
 ]);
 
+Route::get('/env/signup',[
+	'as' => 'envSignupPage',
+	'uses' => 'EnvController@signup'
+]);
+
+
 

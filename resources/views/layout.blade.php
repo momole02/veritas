@@ -45,20 +45,33 @@
 						</div>
 						
 						<div class="col-lg-12 col-md-12 col-sm-12 col-12 header-top-right  no-padding">
-							<form>
+							
+							@if( !Session::has('user-info') )
+							<form method="post" action="{{route('envDoLogin')}}">
+								@csrf
 							<ul>
 								<li>
-									<input type="text" style="font-size: 12px"  class="form-control" placeholder="pseudo" name="login-pseudo">
+									<input type="text" style="font-size: 12px"  class="form-control" placeholder="pseudo" name="user-pseudo">
 								</li>
 								<li>
-									<input type="password" style="font-size: 12px" class="form-control" placeholder="mot de passe" name="login-password">
+									<input type="password" style="font-size: 12px" class="form-control" placeholder="mot de passe" name="user-password">
 								</li>
 
 								<li><button type="submit" style="font-size: 12px"  class="btn btn-success">Se connecter</button></li>
 
 								<li><a href="{{route('envSignupPage')}}" style="font-size: 12px"  class="btn btn-primary">S'inscrire</a></li>
 							</ul>
-						</form>
+							</form>
+							@else
+								<ul>
+									@php
+										$u = Session::get('user-info');
+									@endphp 
+									<li>Connecté en tant que : <b style="color:white">{{$u->login_mb}}</b></li>
+									<li><a href="{{route('envDoLogout')}}" class="btn btn-danger">Deconnecter</a></li>
+									<li><a href="{{route('envMembersPage')}}" class="btn btn-primary">Espace membres</a></li>
+								</ul>
+							@endif 
 						</div>
 					</div>
 				</div>
@@ -68,11 +81,11 @@
 					<div class="row justify-content-between align-items-center">
 						<div class="col-lg-4 col-md-4 col-sm-12 logo-left no-padding">
 							<a href="index.html">
-								<img class="img-fluid" src="img/logo.png" alt="">
+								<img class="img-fluid" src="{{asset('img/logo.png')}}" alt="">
 							</a>
 						</div>
 						<div class="col-lg-8 col-md-8 col-sm-12 logo-right no-padding ads-banner">
-							<img class="img-fluid" src="img/banner-ad.jpg" alt="">
+							<img class="img-fluid" src="{{asset('img/banner-ad.jpg')}}" alt="">
 						</div>
 					</div>
 				</div>

@@ -21,5 +21,50 @@ Route::get('/env/signup',[
 	'uses' => 'EnvController@signup'
 ]);
 
+Route::get('/env/login' , [
+	'as' => 'envLoginPage',
+	'uses' => 'EnvController@login'
+]);
+
+Route::get('/env/members' , [
+	'as' => 'envMembersPage',
+	'uses' => 'EnvController@members'
+])->middleware('auth.veritas');
 
 
+
+
+
+Route::post('/env/doLogin' , [
+	'as' => 'envDoLogin',
+	'uses' => 'EnvController@doLogin'
+]);
+Route::post('/env/doSignup',[
+	'as' => 'envDoSignup',
+	'uses' => 'EnvController@doSignup'
+]);
+Route::post('/env/doUpdateUserPhoto',[
+	'as' => 'envDoUpdateUserPhoto',
+	'uses' => 'EnvController@doUpdateUserPhoto'
+]);
+
+Route::get('/env/doLogout' ,[
+	'as' => 'envDoLogout',
+	'uses' => function(){
+		session()->forget('user-info');
+		return redirect()->route('indexPage');
+	}
+]);
+
+//////////////////////////////////////////////POSTS////////////////////////////////////////////////////
+
+
+Route::get('/posts/' , [
+	'as' => 'postsPage',
+	'uses' => 'PostController@posts'
+]);
+
+Route::post('/posts/doPost', [
+	'as' => 'postsDoPost',
+	'uses' => 'PostController@doPost'
+]);
